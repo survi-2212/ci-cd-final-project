@@ -1,0 +1,25 @@
+name: CI Workflow
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install flake8 nose
+
+      - name: Run Linter
+        run: flake8 app.py
+
+      - name: Run Tests
+        run: nosetests
